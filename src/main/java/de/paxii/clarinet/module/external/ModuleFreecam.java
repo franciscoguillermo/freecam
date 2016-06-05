@@ -22,6 +22,9 @@ public class ModuleFreecam extends Module {
 	public ModuleFreecam() {
 		super("Freecam", ModuleCategory.MOVEMENT);
 
+		this.setVersion("1.0");
+		this.setBuildVersion(15801);
+
 		this.random = new Random();
 	}
 

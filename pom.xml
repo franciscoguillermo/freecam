@@ -54,7 +54,7 @@
         <dependency>
             <groupId>de.paxii.matix</groupId>
             <artifactId>matix-client</artifactId>
-            <version>1.9.4-1.5.7B</version>
+            <version>1.9.4-1.5.8B</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
