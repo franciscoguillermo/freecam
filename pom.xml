@@ -11,7 +11,7 @@
     <repositories>
         <repository>
             <id>paxi.matix</id>
-            <url>http://repo.paxii.de/repository/matix-client/</url>
+            <url>http://repo.paxii.de/matix-client/</url>
         </repository>
         <repository>
             <id>mojang.lib</id>
@@ -75,7 +75,7 @@
         <repository>
             <id>paxi.matix</id>
             <name>Matix Repo</name>
-            <url>http://repo.paxii.de/repository/matix-client/</url>
+            <url>http://repo.paxii.de/matix-client/</url>
         </repository>
     </distributionManagement>
 </project>
