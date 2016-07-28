@@ -6,16 +6,16 @@
 
     <groupId>de.paxii.matixplugins</groupId>
     <artifactId>Freecam</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
+
+    <properties>
+        <matix.version>1.10-1.6.2B</matix.version>
+    </properties>
 
     <repositories>
         <repository>
             <id>paxi.matix</id>
             <url>http://repo.paxii.de/matix-client/</url>
-        </repository>
-        <repository>
-            <id>mojang.lib</id>
-            <url>https://libraries.minecraft.net</url>
         </repository>
     </repositories>
 
@@ -54,13 +54,13 @@
         <dependency>
             <groupId>de.paxii.matix</groupId>
             <artifactId>matix-client</artifactId>
-            <version>1.9.4-1.5.8B</version>
+            <version>${matix.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.16.6</version>
+            <version>1.16.10</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

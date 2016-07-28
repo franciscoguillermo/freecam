@@ -2,6 +2,9 @@ package de.paxii.clarinet.module.external;
 
 import de.paxii.clarinet.Wrapper;
 import de.paxii.clarinet.event.EventHandler;
+import de.paxii.clarinet.event.events.entity.EntityMoveEvent;
+import de.paxii.clarinet.event.events.game.IngameTickEvent;
+import de.paxii.clarinet.event.events.player.PlayerUpdateWalkingEvent;
 import de.paxii.clarinet.event.events.player.PreMotionUpdateEvent;
 import de.paxii.clarinet.module.Module;
 import de.paxii.clarinet.module.ModuleCategory;
@@ -22,8 +25,8 @@ public class ModuleFreecam extends Module {
 	public ModuleFreecam() {
 		super("Freecam", ModuleCategory.MOVEMENT);
 
-		this.setVersion("1.0");
-		this.setBuildVersion(15801);
+		this.setVersion("1.1");
+		this.setBuildVersion(16005);
 
 		this.random = new Random();
 	}
@@ -49,8 +52,39 @@ public class ModuleFreecam extends Module {
 	}
 
 	@EventHandler
+	public void onIngameTick(IngameTickEvent event) {
+		float flightSpeed = 2.5F;
+
+		Wrapper.getPlayer().jumpMovementFactor = flightSpeed;
+
+		Wrapper.getPlayer().motionY = 0.0D;
+		Wrapper.getPlayer().motionX = 0.0D;
+		Wrapper.getPlayer().motionZ = 0.0D;
+
+		if (Wrapper.getGameSettings().keyBindJump.isKeyDown()) {
+			Wrapper.getPlayer().motionY += flightSpeed / 1.2;
+		} else if (Wrapper.getGameSettings().keyBindSneak.isKeyDown()) {
+			Wrapper.getPlayer().motionY -= flightSpeed / 1.2;
+		}
+	}
+
+	@EventHandler
 	public void onPreMotionUpdate(PreMotionUpdateEvent event) {
 		event.setCancelled(true);
+	}
+
+	@EventHandler
+	public void onEntityMove(EntityMoveEvent moveEvent) {
+		if (moveEvent.getEntity() == Wrapper.getPlayer()) {
+			moveEvent.setX(moveEvent.getX() * 10D);
+			moveEvent.setZ(moveEvent.getZ() * 10D);
+			moveEvent.setNoClip(true);
+		}
+	}
+
+	@EventHandler
+	public void onUpdateWalking(PlayerUpdateWalkingEvent walkingEvent) {
+		walkingEvent.setCancelled(true);
 	}
 
 	@Override
