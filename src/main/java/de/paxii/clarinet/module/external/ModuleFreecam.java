@@ -27,7 +27,7 @@ public class ModuleFreecam extends Module {
 		super("Freecam", ModuleCategory.MOVEMENT);
 
 		this.setVersion("1.2");
-		this.setBuildVersion(16005);
+		this.setBuildVersion(16006);
 
 		this.getModuleValues().put("speed", new ValueBase("Freecam Speed", 10.0F, 1.0F, 20.0F, "Speed"));
 
