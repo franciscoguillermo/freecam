@@ -6,10 +6,10 @@
 
     <groupId>de.paxii.matixplugins</groupId>
     <artifactId>Freecam</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
 
     <properties>
-        <matix.version>1.10-1.6.2B</matix.version>
+        <matix.version>1.10-1.6.3B</matix.version>
     </properties>
 
     <repositories>
