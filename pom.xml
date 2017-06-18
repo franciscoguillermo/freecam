@@ -9,7 +9,7 @@
     <version>1.2</version>
 
     <properties>
-        <matix.version>1.10-1.6.3B</matix.version>
+        <matix.version>1.12-1.8.1B</matix.version>
     </properties>
 
     <repositories>

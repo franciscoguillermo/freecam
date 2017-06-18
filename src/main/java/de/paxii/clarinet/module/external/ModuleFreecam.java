@@ -11,8 +11,11 @@ import de.paxii.clarinet.module.ModuleCategory;
 import de.paxii.clarinet.util.module.settings.ValueBase;
 
 import net.minecraft.client.entity.EntityOtherPlayerMP;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.util.math.BlockPos;
 
+import java.lang.reflect.Field;
 import java.util.Random;
 
 import lombok.Value;
@@ -41,7 +44,7 @@ public class ModuleFreecam extends Module {
     this.entityID = -random.nextInt(99);
 
     EntityOtherPlayerMP decoyPlayer = new EntityOtherPlayerMP(Wrapper.getWorld(), Wrapper.getPlayer().getGameProfile());
-    decoyPlayer.clonePlayer(Wrapper.getPlayer(), true);
+    this.clonePlayer(Wrapper.getPlayer(), decoyPlayer, true);
     decoyPlayer.rotationYawHead = Wrapper.getPlayer().rotationYawHead;
     decoyPlayer.copyLocationAndAnglesFrom(Wrapper.getPlayer());
     Wrapper.getWorld().addEntityToWorld(this.entityID, decoyPlayer);
@@ -105,6 +108,31 @@ public class ModuleFreecam extends Module {
     Wrapper.getPlayer().rotationYaw = this.savedLocation.getRotationYaw();
     Wrapper.getPlayer().rotationYawHead = this.savedLocation.getRotationYawHead();
     Wrapper.getWorld().removeEntityFromWorld(this.entityID);
+  }
+
+  public void clonePlayer(EntityPlayer oldPlayer, EntityPlayer newPlayer, boolean respawnFromEnd)
+  {
+    if (respawnFromEnd)
+    {
+      newPlayer.inventory.copyInventory(oldPlayer.inventory);
+      newPlayer.setHealth(oldPlayer.getHealth());
+    }
+    else if (newPlayer.world.getGameRules().getBoolean("keepInventory") || oldPlayer.isSpectator())
+    {
+      newPlayer.inventory.copyInventory(oldPlayer.inventory);
+    }
+
+    DataParameter<Byte> playerModelFlag = null;
+    try {
+      Field PLAYER_MODEL_FLAG = EntityPlayer.class.getDeclaredField("PLAYER_MODEL_FLAG");
+      PLAYER_MODEL_FLAG.setAccessible(true);
+      playerModelFlag = (DataParameter<Byte>) PLAYER_MODEL_FLAG.get(null);
+    } catch (ReflectiveOperationException e) {
+      e.printStackTrace();
+    }
+    if (playerModelFlag != null) {
+      newPlayer.getDataManager().set(playerModelFlag, oldPlayer.getDataManager().get(playerModelFlag));
+    }
   }
 
   @Value
